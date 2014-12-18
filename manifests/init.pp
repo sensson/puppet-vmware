@@ -22,16 +22,16 @@ class vmware {
         	
 			# make sure the yum repo is added before we can install vmware tools
 			yumrepo { vmware:
-        		descr		 	=> "VMware Tools Repository",
-        		enabled			=> 1,
-        		gpgcheck		=> 1,
-        		baseurl			=> $vmware_baseurl
-        	} ->
+				descr		 	=> "VMware Tools Repository",
+				enabled			=> 1,
+				gpgcheck		=> 1,
+				baseurl			=> $vmware_baseurl
+			} ->
         	
-        	# make sure the packages are installed
-        	package { $vmware_tools:
-        		ensure 			=> latest      	
-        	} ->
+			# make sure the packages are installed
+			package { $vmware_tools:
+				ensure 			=> latest      	
+			} ->
 			exec { "start vmtoolsd":
 				command => "/sbin/initctl start vmware-tools-services",
 				unless => "/usr/bin/pgrep vmtoolsd",
